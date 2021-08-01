@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+li,
+ul,
+img,
+a,
+div {
+    border: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    background-color: rgb(185, 226, 219);
+    background-image: url(../image/bacground1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn_header {
+    position: fixed;
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: rgb(0, 136, 255);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.btn_header img {
+    height: 20px;
+    width: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 500px;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.116);
+    background-color: rgb(214, 228, 247);
+    ;
+}
+
+.pic {
+    background-image: url(../image/wallhaven-3z32j3_1920x1080.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 10px;
+    width: 700px;
+    height: 480px;
+    border-radius: 10px;
+}
+
+.login_container {
+    width: 250px;
+    height: 480px;
+    text-align: center;
+    background-color: rgb(214, 228, 247);
+    margin-top: 10px;
+    padding: 5px 25px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.116);
+}
+
+p {
+    color: white;
+    font-size: 42px;
+    font-weight: 600;
+}
+
+input {
+    background-color: rgb(253, 251, 251);
+    width: 200px;
+    height: 48px;
+    margin-top: 30px;
+    border: none;
+    border-bottom: 2px solid rgb(166, 93, 184);
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+}
+
+.btn {
+    background-color: #59c2c5;
+    width: 45%;
+    height: 48px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    border-bottom: none;
+}
+
+.btn:hover {
+    background-color: #59c2a0;
+}
