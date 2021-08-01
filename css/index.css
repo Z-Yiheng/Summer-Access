@@ -292,6 +292,7 @@ nav a:nth-child(3):hover~.animation {
     background-color: yellowgreen;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.226);
     font-size: 24px;
     font-weight: 800;
     text-indent: 1em;
@@ -303,13 +304,14 @@ nav a:nth-child(3):hover~.animation {
     line-height: 50px;
 }
 
-.content_body {
+
+/* .content_body {
     width: 1000px;
     height: 300px;
     margin-top: 20px;
     border: 1px solid rgb(0, 174, 255);
     border-radius: 10px;
-}
+} */
 
 
 /* 制定按钮 */
