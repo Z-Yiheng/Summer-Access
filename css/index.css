@@ -304,14 +304,24 @@ nav a:nth-child(3):hover~.animation {
     line-height: 50px;
 }
 
-
-/* .content_body {
+.content_body {
+    position: relative;
     width: 1000px;
-    height: 300px;
+    height: 1400px;
     margin-top: 20px;
+}
+
+.item {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    background-color: white;
     border: 1px solid rgb(0, 174, 255);
-    border-radius: 10px;
-} */
+}
+
+.item p {
+    word-wrap: break-word;
+}
 
 
 /* 制定按钮 */
