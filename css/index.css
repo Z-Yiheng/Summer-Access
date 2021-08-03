@@ -312,14 +312,28 @@ nav a:nth-child(3):hover~.animation {
 }
 
 .item {
+    cursor: pointer;
     position: absolute;
     width: 300px;
     height: auto;
     background-color: white;
-    border: 1px solid rgb(0, 174, 255);
+    border: 1px solid rgb(189, 188, 188);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.226);
+    border-radius: 5px;
 }
 
-.item p {
+.item:hover {
+    transform: scale(1.05);
+    transition: all 0.8s;
+}
+
+.item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.description {
     word-wrap: break-word;
 }
 
