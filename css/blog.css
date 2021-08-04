@@ -18,6 +18,12 @@ body {
     background-color: rgb(185, 226, 219);
 }
 
+#title p {
+    font-size: 32px;
+    font-weight: 400;
+    padding-top: 24px;
+}
+
 #background {
     position: fixed;
     left: 0;
@@ -121,16 +127,26 @@ nav {
     margin-left: 10px;
 }
 
-#content {
+#content_container {
     width: 1000px;
-    height: 1500px;
+    height: auto;
     margin: 0 auto;
     background-color: whitesmoke;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.226);
+}
+
+#content {
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
 }
 
 .none {
     width: 1000px;
     height: 150px;
     margin: 0 auto;
+}
+
+p {
+    font-size: 17px;
 }
