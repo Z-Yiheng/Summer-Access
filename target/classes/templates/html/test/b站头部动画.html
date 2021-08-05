@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>B站秋季头部动画</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #2c3e50;
+            font-family: "Montserrat", Arial, sans-serif, "Microsoft Yahei";
+        }
+
+        .banner {
+            position: relative;
+            width: 100vw;
+            height: 155px;
+            overflow: hidden;
+            background-color: #00b894;
+        }
+
+        .image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="banner">
+    <div class="image">
+        <img width="3000" height="250" src="/src/main/resources/static/image/B-image/bg.png"/>
+    </div>
+    <div class="image">
+        <img width="1800" height="165" src="/src/main/resources/static/image/B-image/girl1.png"/>
+    </div>
+    <div class="image">
+        <img width="3000" height="250" src="/src/main/resources/static/image/B-image/grassland.png"/>
+    </div>
+    <div class="image">
+        <img width="1800" height="160" src="/src/main/resources/static/image/B-image/mushroom.png"/>
+    </div>
+    <div class="image">
+        <img width="1800" height="165" src="/src/main/resources/static/image/B-image/spirit.png"/>
+    </div>
+    <div class="image">
+        <img width="1950" height="178" src="/src/main/resources/static/image/B-image/leaf.png"/>
+    </div>
+</div>
+
+<script>
+    let x = 0;
+    let x_new = 0;
+    let x_offset = 0;
+
+    let banner = document.querySelector(".banner");
+    let images = document.querySelectorAll(".image");
+
+    let window_width = document.documentElement.clientWidth;
+    let step = window_width / 2 / 5; // 屏幕移动 1/2 屏幕宽度，模糊度发生 5px 变化
+    //   console.log("step: ", step);
+    let data_images = [{
+        x: 0,
+        b: 4
+    }, {
+        x: 0,
+        b: 0
+    }, {
+        x: 0,
+        b: 1
+    }, {
+        x: 0,
+        b: 4
+    }, {
+        x: 0,
+        b: 5
+    }, {
+        x: 0,
+        b: 6
+    },];
+
+    // 初始函数
+    let init = () => {
+        for (const key in images) {
+            if (images.hasOwnProperty(key)) {
+                const element = images[key];
+                const element_data = data_images[key];
+                element.children[0].style = `transform: .2s linear; transform: translate(${element_data.x}px); filter: blur(${element_data.b}px);`;
+            }
+        }
+    };
+
+    // 鼠标悬停
+    banner.addEventListener("mouseover", (e) => {
+        x = e.clientX;
+        // console.log(x);
+    });
+
+    // 鼠标移入
+    banner.addEventListener("mousemove", (e) => {
+        x_new = e.clientX;
+        // console.log(x_new);
+        x_offset = x - x_new;
+        // console.log(x_offset);
+        for (const key in images) {
+            if (images.hasOwnProperty(key)) {
+                let level = (6 - parseInt(key)) * 10;
+                const element = images[key];
+                const element_data = data_images[key];
+                let b_new = Math.abs(element_data.b + x_offset / step);
+                let l_new = 0 - x_offset / level;
+                element.children[0].style = `transform: translate(${l_new}px);filter:blur(${b_new}px);`;
+            }
+        }
+    });
+
+    // 鼠标移出恢复默认
+    banner.addEventListener("mouseout", (e) => {
+        init();
+    });
+</script>
+</body>
+
+</html>
