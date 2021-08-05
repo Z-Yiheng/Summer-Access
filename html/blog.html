@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    <div class="progress"></div>
     <div id="background"></div>
     <!-- 返回首页按钮 -->
     <header>
@@ -419,6 +420,19 @@
             // For headings inside relative or absolute positioned containers within content.
             hasInnerContainers: true,
         });
+
+
+        (function() {
+            let pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+            let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            let scrollAvail = pageHeight - windowHeight;
+            console.log('可滚动高度', scrollAvail);
+            window.onscroll = function() {
+                let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                console.log('滚动条高度', scrollTop);
+                document.querySelector('.progress').style.width = (scrollTop / scrollAvail) * 100 + '%';
+            };
+        }());
     </script>
 </body>
 
