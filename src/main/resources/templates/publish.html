@@ -32,35 +32,41 @@
             </div>
         </div>
     </div>
-    <div class="required field" style="margin-top: 20px;">
-        <div class="ui left labeled input focus" style="width: 500px;">
-            <label class="ui orange basic label">首图</label>
-            <input type="text" name="title" placeholder="标题">
+    <form id="blog-form" action="#" th:action="@{/admin/blog}" method="post">
+        <input type="hidden" name="published">
+        <div class="required field" style="margin-top: 10px;">
+            <div class="ui left labeled input focus" style="width: 1127px;">
+                <label class="ui orange basic label">标题</label>
+                <input type="text" name="title" placeholder="标题">
+            </div>
         </div>
-    </div>
-    <div class="required field" style="margin-top: 20px;">
-        <div class="ui left labeled input focus" style="width: 500px; margin-left: 127px;">
-            <label class="ui orange basic label">首图</label>
-            <input type="text" name="firstPicture" placeholder="首图引用地址">
+
+        <div class="required field" style="margin-top: 10px;">
+            <div class="ui left labeled input focus" style="width: 1127px;">
+                <label class="ui orange basic label">首图</label>
+                <input type="text" name="firstPicture" placeholder="首图引用地址">
+            </div>
         </div>
-    </div>
 
-    <div class="ui left labeled input focus" style="width: 1127px; margin-top: 20px;">
-        <label class="ui orange basic label">博客简介</label>
-        <input type="text" name="title" placeholder="简介">
-    </div>
-
-    <div class="required field" style="margin-top: 20px;">
-        <div id="md-content">
-            <textarea name="description" placeholder="详细内容博客..." style="display: none;"></textarea>
+        <div class="required field" style="margin-top: 10px;">
+            <div class="ui left labeled input focus" style="width: 1127px;">
+                <label class="ui orange basic label">博客简介</label>
+                <input type="text" name="briefContent" placeholder="简介">
+            </div>
         </div>
-    </div>
 
-    <div class="ui right aligned container">
-        <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-        <button type="button" id="save-btn" class="ui orange button">保存</button>
-        <button type="button" id="publish-btn" class="ui yellow button">发布</button>
-    </div>
+        <div class="required field" style="margin-top: 20px;">
+            <div id="md-content">
+                <textarea name="detailContent" placeholder="详细内容博客..." style="display: none;"></textarea>
+            </div>
+        </div>
+
+        <div class="ui right aligned container">
+            <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+            <button type="button" id="save-btn" class="ui orange button">保存</button>
+            <button type="button" id="publish-btn" class="ui yellow button">发布</button>
+        </div>
+    </form>
 </div>
 
 <script src="../static/js/jquery-3.6.0.js" th:src="@{/js/jquery-3.6.0.js}"></script>
@@ -72,11 +78,22 @@
     $(function () {
         contentEditor = editormd("md-content", {
             width: 1127,
-            height: 400,
+            height: 350,
             syncScrolling: "single",
             path: "/Utils/editormd/lib/"
         });
     });
+
+    $('#save-btn').click(function () {
+        $('[name="published"]').val(false);
+        $('#blog-form').submit();
+    });
+
+    $('#publish-btn').click(function () {
+        $('[name="published"]').val(true);
+        $('#blog-form').submit();
+    });
+
 </script>
 </body>
 
