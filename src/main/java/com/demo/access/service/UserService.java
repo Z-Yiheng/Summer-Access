@@ -21,7 +21,6 @@ public class UserService {
         String username = user.getUsername();
         String password = user.getPassword();
         User user1 = userMapper.checkUser(username);
-
         if(user1==null) {
             return false;
         } else {
@@ -32,5 +31,4 @@ public class UserService {
             }
         }
     }
-
 }
