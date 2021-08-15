@@ -27,7 +27,6 @@ public class ImgService {
         //访问地址即存储到数据库的地址
         String visitPath = "static/" + url_path;
         System.out.println("图片访问url：" + visitPath);
-
         File saveFile = new File(savePath);
         if (!saveFile.exists()) {
             saveFile.mkdirs();
