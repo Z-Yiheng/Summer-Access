@@ -17,13 +17,14 @@ public class BlogService {
     @Autowired
     BlogMapper blogMapper;
 
-
+    //设置点击量和上传时间
     public Blog setBlog(Blog blog) {
         blog.setPublish_time(new Date());
         blog.setViews(0);
         return blog;
     }
 
+    //保存blog
     public void saveBlog(Blog blog) {
         blogMapper.saveBlog(blog);
     }

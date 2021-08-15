@@ -12,9 +12,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface BlogMapper {
 
-
-    Blog setBlog(Blog blog);
-
     void saveBlog(Blog blog);
 
 }

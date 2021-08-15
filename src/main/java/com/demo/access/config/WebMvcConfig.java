@@ -19,8 +19,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/list").setViewName("list");
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/imctemp-rainy/**").addResourceLocations("D:/张以恒/桌面/Service-Innovation/src/main/resources/static/image/");
-    }
 }
