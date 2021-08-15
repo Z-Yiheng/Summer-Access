@@ -16,20 +16,11 @@
     <nav>
         <p>后台管理</p>
 
-        <a href="index.html">博客</a>
+        <a th:href="@{/}">博客</a>
     </nav>
 </header>
 <div class="content">
-    <div class="m-padded-tb-hugex">
-        <div class="ui attached pointing menu">
-            <div class="ui container">
-                <div class="right menu">
-                    <a href="#" class="item">发布</a>
-                    <a href="#" class="orange active item">列表</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="~{publish::head-title(active='list.html')}"></div>
 
     <table class="ui selectable celled striped table">
         <thead>

@@ -17,54 +17,57 @@
     <nav>
         <p>后台管理</p>
 
-        <a href="index.html">博客</a>
+        <a th:href="@{/}">博客</a>
     </nav>
 </header>
 
 <div class="content">
-    <div class="m-padded-tb-hugex">
-        <div class="ui attached pointing menu">
+    <div style="display: none">
+        <div class="ui attached pointing menu" th:fragment="head-title">
             <div class="ui container">
                 <div class="right menu">
-                    <a href="#" class="orange active item">发布</a>
-                    <a href="#" class="item">列表</a>
+                    <a th:href="@{/publish}" th:class="${active=='publish.html'?'orange active item':'item'}">发布</a>
+                    <a th:href="@{/list}" th:class="${active=='list.html'?'orange active item':'item'}">列表</a>
                 </div>
             </div>
         </div>
     </div>
-    <form id="blog-form" action="#" th:action="@{/admin/blog}" method="post">
-        <input type="hidden" name="published">
+    <div>
+        <div th:replace="~{publish::head-title(active='publish.html')}"></div>
+    </div>
+    <form id="blog-form" th:action="@{/insertBlog}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="published" id="published">
         <div class="required field" style="margin-top: 10px;">
             <div class="ui left labeled input focus" style="width: 1127px;">
                 <label class="ui orange basic label">标题</label>
-                <input type="text" name="title" placeholder="标题">
+                <input type="text" name="title" id="title" placeholder="标题">
             </div>
         </div>
 
         <div class="required field" style="margin-top: 10px;">
             <div class="ui left labeled input focus" style="width: 1127px;">
                 <label class="ui orange basic label">首图</label>
-                <input type="text" name="firstPicture" placeholder="首图引用地址">
+                <input type="file" name="file" id="firstPicture" placeholder="首图" accept="image/gif, image/jpg, image/png">
             </div>
         </div>
 
         <div class="required field" style="margin-top: 10px;">
             <div class="ui left labeled input focus" style="width: 1127px;">
                 <label class="ui orange basic label">博客简介</label>
-                <input type="text" name="briefContent" placeholder="简介">
+                <input type="text" name="briefContent" id="briefContent" placeholder="简介">
             </div>
         </div>
 
         <div class="required field" style="margin-top: 20px;">
             <div id="md-content">
-                <textarea name="detailContent" placeholder="详细内容博客..." style="display: none;"></textarea>
+                <textarea name="detailContent" id="detailContent" placeholder="详细内容博客..." style="display: none;"></textarea>
             </div>
         </div>
 
         <div class="ui right aligned container">
             <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-            <button type="button" id="save-btn" class="ui orange button">保存</button>
-            <button type="button" id="publish-btn" class="ui yellow button">发布</button>
+            <button type="button" id="save-btn" class="ui orange button" onclick="submit()">保存</button>
+            <button type="button" id="publish-btn" class="ui yellow button" onclick="submit()">发布</button>
         </div>
     </form>
 </div>
@@ -83,6 +86,21 @@
             path: "/Utils/editormd/lib/"
         });
     });
+
+
+    function submit() {
+        var formData = new FormData($('#blog-form')[0]);
+
+        $.ajax({
+            url: "/insertBlog",
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+        });
+    };
+
 
     $('#save-btn').click(function () {
         $('[name="published"]').val(false);

@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "file.rootPath.D",
+      "type": "java.lang.String",
+      "description": "Description for file.rootPath.D."
+  }
+] }

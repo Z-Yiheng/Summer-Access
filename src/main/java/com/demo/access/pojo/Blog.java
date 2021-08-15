@@ -26,13 +26,13 @@ public class Blog {
     @GeneratedValue
     private Long id;
 
-    private String title;
-    private String firstPicture;
-    private String briefContent;
-    private String detailContent;
-    private Integer views;
-    private boolean published;
+    private String first_picture;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date publishTime;
+    private Date publish_time;
+    private String title;
+    private Integer views;
+    private String brief_content;
+    private String detail_content;
+    private boolean published;
 
 }

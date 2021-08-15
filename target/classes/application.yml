@@ -18,7 +18,8 @@ spring:
     time-zone: GMT+8
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
+
