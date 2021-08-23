@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
+    <script src="/Utils/jquery-3.6.0.js" th:src="@{/Utils/jquery-3.6.0.js}"></script>
+    <script src="/Utils/semantic_ui/semantic.min.js" th:src="@{/Utils/semantic_ui/semantic.min.js}"></script>
+    <style>
+        html::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        
+        html::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: linear-gradient(#CCFFFF, #66CCCC, #009999);
+        }
+        
+        html::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background: #EDEDED;
+        }
+    </style>
+</head>
+
+<div class="ui container">
+    <div th:replace="~{common::slider(active='personal.html')}"></div>
+    <div class="pusher">
+        <div class="ui basic segment">
+
+            <form class="ui form" id="logo-form" method="post" enctype="multipart/form-data">
+                <a class="item">
+                    <img class="ui medium circular image" src="/img/logo.jpg" alt="">
+                </a>
+                <input type="file" name="file" id="logo" style="display: none;" accept="image/gif,image/jpg,image/png">
+                <button class="ui inverted blue tiny button" type="button" onclick="openFile()" style="margin-left: 300px;">更改头像</button>
+            </form>
+
+            <form class="ui form" id="person-form" th:action="@{/person}" method="post" enctype="multipart/form-data">
+                <h3 class="ui dividing header">个人信息</h3>
+
+                <div class="field">
+                    <label>账号</label>
+                    <div class="fields">
+                        <div class="ten wide field">
+                            <input type="text" name="username" id="username" placeholder="User Name" th:placeholder="${person.username}" th:value="${person.username}" disabled="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>名字</label>
+                    <div class="one fields">
+                        <div class="field">
+                            <input type="text" name="othername" id="othername" placeholder="昵称" th:placeholder="${person.othername}" th:value="${person.othername}">
+                        </div>
+                        <div class="field">
+                            <input type="text" name="firstname" id="firstname" placeholder="First Name" th:placeholder="${person.firstname}" th:value="${person.firstname}" disabled="true">
+                        </div>
+                        <div class="field">
+                            <input type="text" name="lastname" id="lastname" placeholder="Last Name" th:placeholder="${person.lastname}" th:value="${person.lastname}" disabled="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>手机号</label>
+                    <div class="fields">
+                        <div class="ten wide field">
+                            <input type="text" name="phonenumber" id="phonenumber" placeholder="Phone Number" th:placeholder="${person.phonenumber}" th:value="${person.phonenumber}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>QQ</label>
+                    <div class="fields">
+                        <div class="ten wide field">
+                            <input type="text" name="qq" id="qq" placeholder="QQ" th:placeholder="${person.qq}" th:value="${person.qq}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>WeChat</label>
+                    <div class="fields">
+                        <div class="ten wide field">
+                            <input type="text" name="wechat" id="wechat" placeholder="WeChat" th:placeholder="${person.wechat}" th:value="${person.wechat}">
+                        </div>
+                    </div>
+                </div>
+
+                <div type="button" class="ui button" tabindex="0" onclick="submit()">提交信息</div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<img class="ui fluid image" src="/img/footer.png" th:src="@{/img/footer.png}" alt="">
+
+<script>
+    function openFile() {
+        document.getElementById("logo").click();
+    }
+
+    var username = $('#username').val();
+
+    function submit() {
+        var formData = new FormData($('#person-form')[0]);
+
+        $.ajax({
+            url: '/person/' + username,
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+        });
+    };
+</script>
+
+<body>
+
+</body>
+
+</html>

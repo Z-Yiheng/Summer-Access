@@ -1,57 +1,68 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html>
 
-<head>
+<head lang="en" xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
+    <title>后台管理登录界面</title>
+    <link rel="stylesheet" href="/CSS/login.css" th:href="@{/CSS/login.css}">
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
 </head>
 
 <body>
-<div id="background"></div>
-<!-- 返回首页 -->
-<div class="btn_header">
-    <a href="index.html" ><img src="/image/icon-image/首页%20.png" alt="" id=""></a>
-
-</div>
-
-<div class="container">
-    <div class="pic"></div>
-    <div class="login_container">
-        <div id="form-1" method="post" th:action="@{/login}" enctype="application/json">
-            <p>Login</p>
-            <input type="text" name="username" id="username" placeholder="账号">
-            <input type="password" name="password" id="password" placeholder="密码">
-            <input type="submit" name="submit" id="submit-btn" class="btn" onclick="login()">
+    <div class="wrap">
+        <div class="container">
+            <h1 class="ui icon header" style="display: inline; color: white;">
+                <i class="settings icon"></i>
+                <div class="content">后台管理
+                    <div class="sub header">WELCOME BACK</div>
+                </div>
+            </h1>
+            <div id="form-1" method="post" th:action="@{/login}" enctype="application/json">
+                <input type="text" name="username" id="username" placeholder="user login" />
+                <input type="password" name="password" id="password" placeholder="password" />
+                <input type="submit" name="submit" id="submit-btn" onclick="login()" value="Login" />
+            </div>
         </div>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
-</div>
-<script type="text/javascript" src="../static/js/jquery-3.6.0.js" th:src="@{/js/jquery-3.6.0.js}"></script>
-<script>
-    function login() {
-        var username = $('#username').val();
-        var password = $('#password').val();
+    <script type="text/javascript" src="/Utils/jquery-3.6.0.js" th:src="@{/Utils/jquery-3.6.0.js}"></script>
+    <script>
+        function login() {
+            var username = $('#username').val();
+            var password = $('#password').val();
 
-        var user = JSON.stringify({"username":username,"password":password});
+            var user = JSON.stringify({
+                "username": username,
+                "password": password
+            });
 
-        $.ajax({
-            url: "/login",
-            type: 'POST',
-            contentType: 'application/json',
-            data: user,
-            dataType:'json',
-            success: function (data) {
-                if(data.result=="fail") {
-                    alert("账号或密码错误");
-                } else {
-                    window.location.href="/publish";
+            $.ajax({
+                url: "/login",
+                type: 'POST',
+                contentType: 'application/json',
+                data: user,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.result == "fail") {
+                        alert("账号或密码错误");
+                    } else {
+                        window.location.href = "/personal/"+username;
+                    }
                 }
-            }
-        })
-    }
-</script>
+            })
+        }
+    </script>
 </body>
 
 </html>

@@ -13,15 +13,27 @@ div {
     text-decoration: none;
 }
 
+
+/* 滚轮样式设置 */
+
+html::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: linear-gradient(#CCFFFF, #66CCCC, #009999);
+}
+
+html::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #EDEDED;
+}
+
 body {
     overflow-x: hidden;
     background-color: rgb(185, 226, 219);
-}
-
-#title p {
-    font-size: 32px;
-    font-weight: 400;
-    padding-top: 24px;
 }
 
 .progress {
@@ -32,95 +44,10 @@ body {
     background-color: rgb(0, 204, 255);
 }
 
-#background {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(../image/bacground1.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: -1;
-}
-
-nav {
-    position: relative;
-    float: left;
-    width: 100%;
-    height: 80px;
-}
-
-.head_logo img {
-    float: left;
-    width: 60px;
-    height: 60px;
-    margin-top: 10px;
-    margin-left: 10px;
-    border-top: 4px solid white;
-    border-left: 4px solid white;
-    border-bottom: 4px solid white;
-    border-radius: 50%;
-}
-
-#detail {
-    display: none;
-    width: 200px;
-    height: 50px;
-    margin-top: 15px;
-    margin-left: 40px;
-    background-image: linear-gradient(to right, rgb(0, 174, 255), pink);
-    border: 4px solid white;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-#detail a {
-    display: block;
-    width: 170px;
-    height: 50px;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 25px;
-    font-weight: 600;
-    line-height: 50px;
-    color: white;
-}
-
-#detail img {
-    position: absolute;
-    top: 32.5px;
-    left: 200px;
-    width: 30px;
-    height: 20px;
-    transform: rotate(270deg);
-}
-
-#omit {
-    /* display: none; */
-    width: 70px;
-    height: 50px;
-    margin-top: 15px;
-    margin-left: 40px;
-    background-image: linear-gradient(to right, rgb(0, 174, 255), pink);
-    border: 4px solid white;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-#omit img {
-    position: absolute;
-    top: 32.5px;
-    left: 80px;
-    width: 30px;
-    height: 20px;
-    transform: rotate(90deg);
-}
-
 .head_background {
     width: 100%;
     height: 300px;
-    background-image: url(../image/1.png);
+    background-image: url(/img/1.png);
     background-repeat: no-repeat;
     background-size: 100%;
     background-position-y: -350px;
@@ -129,6 +56,7 @@ nav {
 
 .head_background h1 {
     text-align: center;
+    padding-top: 80px;
 }
 
 .head_background span i {
@@ -143,15 +71,13 @@ nav {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.226);
 }
 
+#title {
+    padding-top: 40px;
+}
+
 #content {
     width: 800px;
     height: auto;
-    margin: 0 auto;
-}
-
-.none {
-    width: 1000px;
-    height: 150px;
     margin: 0 auto;
 }
 

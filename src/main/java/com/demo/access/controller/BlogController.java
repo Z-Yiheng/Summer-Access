@@ -2,50 +2,86 @@ package com.demo.access.controller;
 
 import com.demo.access.pojo.Blog;
 import com.demo.access.service.BlogService;
-import com.demo.access.service.ImgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.util.WebUtils;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 张以恒
- * @create 2021/8/13-10:01
+ * @create 2021/8/16-11:00
  **/
 @Controller
 public class BlogController {
 
     @Autowired
-    private BlogService blogService;
+    BlogService blogService;
 
-    @Autowired
-    private ImgService imgService;
+    //map 页显示
+    @RequestMapping("/map")
+    public String showBlogList(String pageNumber, Model model, ModelMap modelMap) {
+        String spPage = pageNumber;
+        //每页条数
+        int pageSize = 10;
+        //页数
+        int pageNo = 0;
+        if (spPage == null) {
+            pageNo = 1;
+        } else {
+            pageNo = Integer.valueOf(spPage);
+            if (pageNo < 1) {
+                pageNo = 1;
+            }
+        }
 
-    @PostMapping("/insertBlog")
-    public String insertBlog(HttpServletRequest request, Blog blog) {
+        //设置最大页数
+        int totalCount = 0;
+        int count = blogService.getCount();
+        if (count>0) {
+            totalCount=count;
+        }
+        int maxPage = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
+        if (pageNo>maxPage) {
+            pageNo=maxPage;
+        }
 
-        Blog blog1 = new Blog();
+        int tempPageNo = (pageNo - 1)*pageSize;
 
-        //给 blog1 设定值
-        blog1.setTitle(request.getParameter("title"));
-        blog1.setBrief_content(request.getParameter("briefContent"));
-        blog1.setDetail_content(request.getParameter("detailContent"));
-        blog1.setPublished(Boolean.parseBoolean(request.getParameter("published")));
+        Map map = new HashMap();
+        map.put("pageNo",tempPageNo);
+        map.put("pageSize",pageSize);
 
-        //文件操作
-        MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request,MultipartHttpServletRequest.class);
-        MultipartFile file = multipartRequest.getFile("file");
-        blog1.setFirst_picture(imgService.uploadImage(file));
+        List<Blog> list = blogService.pageList(map);
+        modelMap.addAttribute("list",list);
+        model.addAttribute("pageNo",pageNo);
+        model.addAttribute("totalCount",totalCount);
+        model.addAttribute("maxPage",maxPage);
 
-
-        //保存到数据库
-        blogService.saveBlog(blogService.setBlog(blog1));
-
-        return "/list";
+        return "map";
     }
+
+    //map 页 删除操作
+    @RequestMapping("/deleteBlog/{id}")
+    public String deleteBlog (@PathVariable int id) {
+        blogService.deleteBlog(id);
+        return "redirect:/map";
+    }
+
+    //main 页 博客显示
+    @RequestMapping("/main")
+    public String mainShow(ModelMap modelMap) {
+        List<Blog> mianlist = blogService.mainblog();
+        modelMap.addAttribute("mainlist",mianlist);
+        return "/main";
+    }
+
+
 }
+

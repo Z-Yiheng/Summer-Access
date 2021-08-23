@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
+    <script src="/Utils/jquery-3.6.0.js" th:src="@{/Utils/jquery-3.6.0.js}"></script>
+    <script src="/Utils/semantic_ui/semantic.min.js" th:src="@{/Utils/semantic_ui/semantic.min.js}"></script>
+    <style>
+        html::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: linear-gradient(#CCFFFF, #66CCCC, #009999);
+        }
+
+        html::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background: #EDEDED;
+        }
+    </style>
+</head>
+<body>
+<div class="ui visible left vertical sidebar thin menu" th:fragment="slider">
+    <div class="item">
+        <img class="ui medium circular image" src="/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="">
+        <div class="ui horizontal divider">
+            博主
+        </div>
+        <span>Z-Yiheng</span>
+    </div>
+    <a th:class="${active=='personal.html'?'blue active item':'item'}" th:href="@{/personal}">
+        <i class="home icon"></i> 个人主页
+    </a>
+    <a th:class="${active=='map.html'?'blue active item':'item'}" th:href="@{/map}">
+        <i class="table icon"></i> 列表管理
+    </a>
+    <a th:class="${active=='published.html'?'blue active item':'item'}" th:href="@{/published}">
+        <i class="file out line icon"></i> 发布博客
+    </a>
+    <a class="item" th:href="@{/main}">
+        <i class="undo alternate icon"></i> 返回博客
+    </a>
+    <a class="item">
+        <i class="sign out alternate icon"></i> 注销账号
+    </a>
+</div>
+</body>
+</html>

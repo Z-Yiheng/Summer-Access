@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import java.util.Date;
  **/
 
 @Entity
-@Table(name = "myBlog")
+@Table(name = "my_blog")
 
 @Data
 @AllArgsConstructor
