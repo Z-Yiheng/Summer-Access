@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布博客</title>
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
+    <link rel="stylesheet" href="/Utils/editormd/css/editormd.min.css" th:href="@{/Utils/editormd/css/editormd.min.css}">
+    <script src="/Utils/jquery-3.6.0.js" th:src="@{/Utils/jquery-3.6.0.js}"></script>
+    <script src="/Utils/semantic_ui/semantic.min.js" th:src="@{/Utils/semantic_ui/semantic.min.js}"></script>
+</head>
+
+<body>
+
+
+<div class="ui visible left vertical sidebar thin menu">
+    <div class="item">
+        <img class="ui medium circular image" src="/img/logo.jpg" th:src="@{'/images/'+${person.logo}}" alt="">
+        <div class="ui horizontal divider">
+            博主
+        </div>
+        <span th:text="${person.othername}">Z-Yiheng</span>
+    </div>
+    <a class="item" th:href="@{/personal}">
+        <i class="home icon"></i> 个人主页
+    </a>
+    <a class="item" th:href="@{/map}">
+        <i class="table icon"></i> 列表管理
+    </a>
+    <a class="blue active item" th:href="@{/published}">
+        <i class="file out line icon"></i> 发布博客
+    </a>
+    <a class="item" th:href="@{/main}">
+        <i class="undo alternate icon"></i> 返回博客
+    </a>
+    <a class="item" th:href="@{/logout}">
+        <i class="sign out alternate icon"></i> 注销账号
+    </a>
+</div>
+
+<div class="pusher">
+    <div class="ui basic segment">
+        <input type="hidden" name="published" id="num" th:value="${Blog.id}">
+        <form class="ui form" id="blog-form" th:action="@{'/updateBlog/'+${Blog.id}}" method="post" enctype="multipart/form-data">
+            <div class="ui container">
+                <input type="hidden" name="published" id="published">
+                <div class="field">
+                    <label>标题</label>
+                    <input type="text" name="title" id="title" placeholder="Title" th:value="${Blog.title}">
+                </div>
+
+                <div class="field">
+                    <label>简介</label>
+                    <input type="text" name="briefContent" id="briefContent" placeholder="Brief Introduction" th:value="${Blog.brief_content}">
+                </div>
+            </div>
+
+            <div class="field" style="margin-top: 20px;z-index: 999;">
+                <div id="md-content">
+                    <textarea name="detailContent" id="detailContent" placeholder="详细内容博客..." style="display: none;" th:text="${Blog.detail_content}"></textarea>
+                </div>
+            </div>
+
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                <button type="button" id="save-btn" class="ui orange button" onclick="submit()">保存</button>
+                <button type="button" id="publish-btn" class="ui yellow button" onclick="submit()">发布</button>
+            </div>
+        </form>
+    </div>
+    <img class="ui fluid image" src="/img/footer.png" style="z-index: -1;" alt="">
+
+</div>
+
+
+<script src="/Utils/editormd/editormd.min.js" th:src="@{/Utils/editormd/editormd.min.js}"></script>
+<script type="text/javascript">
+    //初始化markdown 页面
+    var contentEditor;
+
+    $(function () {
+        contentEditor = editormd("md-content", {
+            width: 1127,
+            height: 350,
+            syncScrolling: "single",
+            path: "/Utils/editormd/lib/"
+        });
+    });
+
+    function submit() {
+        var formData = new FormData($('#blog-form')[0]);
+        var id = document.getElementById('num').value;
+
+        $.ajax({
+            url: "/updateBlog/"+id,
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+        });
+    };
+
+
+    $('#save-btn').click(function () {
+        $('[name="published"]').val(false);
+        $('#blog-form').submit();
+    });
+
+    $('#publish-btn').click(function () {
+        $('[name="published"]').val(true);
+        $('#blog-form').submit();
+    });
+</script>
+
+</body>
+
+</html>

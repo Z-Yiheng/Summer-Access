@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/CSS/style.css" th:href="@{/CSS/style.css}">
+</head>
+<body>
+<div class="main-container">
+    <div class="img-container container-item">
+        <img src="../static/img/404.svg" th:src="@{/img/404.svg}" alt="">
+    </div>
+    <div class="text-container container-item">
+        <div class="code">404</div>
+        <div class="msg">你查看的页面貌似丢失了呢。。</div>
+        <a th:href="@{/main}">返回首页</a>
+    </div>
+</div>
+</body>
+</html>

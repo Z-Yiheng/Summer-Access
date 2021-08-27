@@ -6,13 +6,16 @@ import com.demo.access.service.UserService;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +31,7 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    private ImgService imgService;
+    HttpSession httpSession;
 
     public boolean login(User user) {
         String username = user.getUsername();
@@ -49,9 +52,10 @@ public class UserController {
                     method = RequestMethod.POST,
                     headers = "Accept=application/json")
     @ResponseBody
-    public Map<String ,Object> check(@RequestBody User user) {
+    public Map<String ,Object> check(@RequestBody User user, HttpSession session, Model model) {
         Map<String ,Object> map = new HashMap<>();
         if (login(user)==true) {
+            session.setAttribute("username",user.getUsername());
             map.put("result","success");
         } else {
             map.put("result","fail");
@@ -59,24 +63,21 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping("/personal/{username}")
-    public String personWeb(@PathVariable("username") String username,ModelMap modelMap) {
-        User person = userService.USER_LIST(username);
-        modelMap.addAttribute("person",person);
-        return "/personal"+username;
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session, SessionStatus sessionStatus) {
+
+        session.invalidate();
+        sessionStatus.setComplete();
+        return "redirect:/main";
     }
 
-    @PostMapping("/person/{username}")
-    public String uploadInf(@PathVariable("username") String username,HttpServletRequest request,User user) {
-        User newUser = new User();
+    @RequestMapping(value = "/published")
+    public String showPublish(ModelMap modelMap) {
 
-        newUser.setOthername(request.getParameter("othername"));
-        newUser.setPhonenumber(request.getParameter("phonenumber"));
-        newUser.setQq(request.getParameter("qq"));
-        newUser.setWechat(request.getParameter("wechat"));
+        String username = (String) httpSession.getAttribute("username");
+        modelMap.addAttribute("person",userService.USER_LIST(username));
 
-        userService.UpdateUser(newUser);
-
-        return "redirect:/personal/"+username;
+        return "/published";
     }
+
 }

@@ -28,16 +28,40 @@
 </head>
 
 <div class="ui container">
-    <div th:replace="~{common::slider(active='personal.html')}"></div>
+        <div class="ui visible left vertical sidebar thin menu">
+            <div class="item">
+                <img class="ui medium circular image" src="/img/logo.jpg" th:src="@{'/images/'+${person.logo}}" alt="">
+                <div class="ui horizontal divider">
+                    博主
+                </div>
+                <span th:text="${person.othername}">Z-Yiheng</span>
+            </div>
+            <a class="blue active item" th:href="@{/personal}">
+                <i class="home icon"></i> 个人主页
+            </a>
+            <a class="item" th:href="@{/map}">
+                <i class="table icon"></i> 列表管理
+            </a>
+            <a class="item" th:href="@{/published}">
+                <i class="file out line icon"></i> 发布博客
+            </a>
+            <a class="item" th:href="@{/main}">
+                <i class="undo alternate icon"></i> 返回博客
+            </a>
+            <a class="item" th:href="@{/logout}">
+                <i class="sign out alternate icon"></i> 注销账号
+            </a>
+        </div>
     <div class="pusher">
         <div class="ui basic segment">
 
-            <form class="ui form" id="logo-form" method="post" enctype="multipart/form-data">
+            <form class="ui form" id="logo-form" method="post" th:action="@{/uploadImg}" enctype="multipart/form-data">
                 <a class="item">
-                    <img class="ui medium circular image" src="/img/logo.jpg" alt="">
+                    <img id="show" class="ui medium circular image" src="/img/logo.jpg" th:src="@{'/images/'+${person.logo}}" alt="">
                 </a>
-                <input type="file" name="file" id="logo" style="display: none;" accept="image/gif,image/jpg,image/png">
+                <input type="file" name="file" id="logo" style="display: none;" onchange="changepic()" accept="image/gif,image/jpg,image/png">
                 <button class="ui inverted blue tiny button" type="button" onclick="openFile()" style="margin-left: 300px;">更改头像</button>
+                <button class="ui inverted green tiny button" type="button" onclick="submit_logo()">上传头像</button>
             </form>
 
             <form class="ui form" id="person-form" th:action="@{/person}" method="post" enctype="multipart/form-data">
@@ -56,7 +80,7 @@
                     <label>名字</label>
                     <div class="one fields">
                         <div class="field">
-                            <input type="text" name="othername" id="othername" placeholder="昵称" th:placeholder="${person.othername}" th:value="${person.othername}">
+                            <input type="text" name="othername" id="othername" placeholder="昵称" th:value="${person.othername}">
                         </div>
                         <div class="field">
                             <input type="text" name="firstname" id="firstname" placeholder="First Name" th:placeholder="${person.firstname}" th:value="${person.firstname}" disabled="true">
@@ -103,22 +127,56 @@
 <img class="ui fluid image" src="/img/footer.png" th:src="@{/img/footer.png}" alt="">
 
 <script>
+    function changepic() {
+        var reads= new FileReader();
+        f=document.getElementById('logo').files[0];
+        reads.readAsDataURL(f);
+        reads.onload=function (e) {
+            document.getElementById('show').src=this.result;
+        };
+    }
+
     function openFile() {
         document.getElementById("logo").click();
     }
 
     var username = $('#username').val();
 
+    function submit_logo() {
+        var formData_logo = new FormData($('#logo-form')[0]);
+
+        $.ajax({
+            url: '/uploadImg',
+            type: 'POST',
+            cache: false,
+            data: formData_logo,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "success"){
+                    window.location.href = "/personal";
+                }
+                alert("上传成功");
+            }
+        });
+    };
+
     function submit() {
         var formData = new FormData($('#person-form')[0]);
 
         $.ajax({
-            url: '/person/' + username,
+            url: '/person',
             type: 'POST',
             cache: false,
             data: formData,
             processData: false,
             contentType: false,
+            success: function (data) {
+                if (data == "success"){
+                    window.location.href = "/personal";
+                }
+                alert("上传成功");
+            }
         });
     };
 </script>

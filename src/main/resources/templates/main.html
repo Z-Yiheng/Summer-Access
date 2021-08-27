@@ -20,13 +20,19 @@
             <div class="item">
                 <h5 class="ui header"><img class="ui circular image" src="/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="">Z-Yiheng</h5>
             </div>
-
             <a class="item" th:href="@{/main}">
                 <i class="home icon"></i> 首页
             </a>
-            <a class="item">
+            <div class="ui simple dropdown item">
                 <i class="grid layout icon"></i> 分类
-            </a>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item">前端</div>
+                    <div class="item">后端</div>
+                    <div class="item">数据结构与算法</div>
+                </div>
+            </div>
+
             <a class="item">
                 <i class="mail icon"></i>意见箱
             </a>
@@ -34,7 +40,7 @@
                 <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" th:href="@{/background}"><i class="edit icon"></i> 管理员入口</a>
-                    <a class="item"><i class="address card icon"></i>关于我</a>
+                    <a class="item" id="about_me"><i class="address card icon"></i>关于我</a>
                 </div>
             </div>
             <div class="right item">
@@ -45,6 +51,40 @@
             </div>
         </div>
     </div>
+
+    <!-- 关于我 -->
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            一个普通大学生
+        </div>
+        <div class="image content">
+            <div class="ui medium image">
+                <img src="/img/logo.jpg">
+            </div>
+            <div class="description">
+                <div class="ui header">博主：张以恒</div>
+                <p>就读于 <a href="https://www.guet.edu.cn/" target="_blank">桂林电子科技大学</a>，软件工程专业大二学生</p>
+                <p>学习方向：网站后端</p>
+                <p>爱好：篮球、游戏</p>
+                <p>联系我：</p>
+                <a class="ui image label">
+                    <i class="qq icon"></i>
+                    QQ
+                </a>
+                <a class="ui image label">
+                    <i class="wechat icon"></i>
+                    WeChat
+                </a>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Close
+            </div>
+        </div>
+    </div>
+
     <!-- body head -->
     <div class="headerImg">
         <div class="bubbles"></div>
@@ -55,106 +95,43 @@
         <p>博学之，审问之，慎思之，明辨之，笃行之。</p>
     </div>
 
+    <div class="headButton">
+        <i class="ui inverted big angle down icon" id="pointer"></i>
+    </div>
+
     <!-- body content -->
-    <div class="ui container" style="margin-top: 20px;">
+    <div class="ui container" style="margin-top: 20px;" id="body">
         <h4 class="ui horizontal divider header">
-            <i class="fire red icon"></i>&nbsp;&nbsp;Hot&nbsp;&nbsp;
+            <i class="fire red icon"></i>&nbsp;&nbsp;Latest&nbsp;&nbsp;
             <i class="fire red icon"></i>
         </h4>
 
 
         <div class="ui divided items">
-            <!-- 第一个 -->
-            <a class="ui red ribbon label">TOP 1</a>
-            <div class="item">
-                <!-- 首图 -->
+            <div class="item" th:each="lastest:${lastestList}">
+                <div style="display:none;" th:text="${lastest.id}"></div>
                 <div class="image">
-                    <img src="/img/logo.jpg" th:src="@{/img/logo.jpg}">
+                    <img src="/img/logo.jpg" th:src="@{'/images/'+${lastest.first_picture}}">
                 </div>
                 <div class="content">
                     <!-- title -->
-                    <a class="header">这是一个博客2</a>
+                    <a class="header" th:text="${lastest.title}"></a>
 
                     <div class="meta">
                         <span class="cinema"></span>
                     </div>
                     <!-- 简介 -->
                     <div class="description">
-                        <p>简介在此</p>
+                        <p th:text="${lastest.brief_content}">简介在此</p>
                     </div>
                     <!-- 时间 -->
                     <div class="extra">
-                        <div class="ui label">2021-8-1</div>
+                        <div class="ui label" th:text="${#dates.format(lastest.publish_time,'yyyy-MM-dd')}">2021-8-1</div>
                     </div>
                     <!-- 详情按钮 -->
                     <div class="extra">
                         <div class="ui right floated primary tiny button">
-                            <a href="" style="color: white;">了解全部</a>
-                            <i class="right chevron icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 第二个 -->
-            <a class="ui yellow ribbon label">TOP 2</a>
-            <div class="item">
-                <!-- 首图 -->
-                <div class="image">
-                    <img src="/img/logo.jpg" th:src="@{/img/logo.jpg}">
-                </div>
-                <div class="content">
-                    <!-- title -->
-                    <a class="header">这是一个博客2</a>
-
-                    <div class="meta">
-                        <span class="cinema"></span>
-                    </div>
-                    <!-- 简介 -->
-                    <div class="description">
-                        <p>简介在此</p>
-                    </div>
-                    <!-- 时间 -->
-                    <div class="extra">
-                        <div class="ui label">2021-8-1</div>
-                    </div>
-                    <!-- 详情按钮 -->
-                    <div class="extra">
-                        <div class="ui right floated primary"></div>
-                    </div>
-                    <div class="extra">
-                        <div class="ui right floated primary tiny button">
-                            <a href="" style="color: white;">了解全部</a>
-                            <i class="right chevron icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 第三个 -->
-            <a class="ui green ribbon label">TOP 3</a>
-            <div class="item">
-                <!-- 首图 -->
-                <div class="image">
-                    <img src="/img/logo.jpg" th:src="@{/img/logo.jpg}">
-                </div>
-                <div class="content">
-                    <!-- title -->
-                    <a class="header">这是一个博客2</a>
-
-                    <div class="meta">
-                        <span class="cinema"></span>
-                    </div>
-                    <!-- 简介 -->
-                    <div class="description">
-                        <p>简介在此</p>
-                    </div>
-                    <!-- 时间 -->
-                    <div class="extra">
-                        <div class="ui label">2021-8-1</div>
-                    </div>
-                    <!-- 详情按钮 -->
-                    <div class="extra">
-                        <div class="ui right floated primary tiny button">
-                            <a href="" style="color: white;">了解全部</a>
+                            <a href="" style="color: white;" th:href="@{'/blog/'+${lastest.id}}">了解全部</a>
                             <i class="right chevron icon"></i>
                         </div>
                     </div>
@@ -165,57 +142,62 @@
                 MORE
             </div>
 
-            <div class="ui segment" id="container">
-                <h2 class="ui left floated header">Total</h2>
-                <div class="ui clearing divider"></div>
+            <div id="container">
+
+                <h3 class="ui block header"> 所有博客 </h3>
 
                 <!-- 瀑布流 -->
                 <div class="content_body">
-                            <div class="my_item" th:each="list: ${mainlist}">
-                                <div style="display:none;" th:text="${list.id}"></div>
-                                <div class="img">
-                                    <img alt="" src="/img/wallhaven-3z32j3_1920x1080.png" th:src="@{'/img/'+${list.first_picture}}">
-                                </div>
-                                <div class="head_card">
-                                    <h2 th:text="${list.title}"></h2>
-                                </div>
-                                <div class="ui divider"></div>
-                                <div class="my_description">
-                                    <p th:text="${list.brief_content}"></p>
-                                    <div>
-                                        <a th:href="@{'/blog/'+${list.id}}">了解更多</a>
-                                    </div>
-                                </div>
-                                <div class="ui divider"></div>
-                                <div class="extra content">
-                                    <span class="left floated" style="float: left;margin-left: 10px;">
-                                        <i class="eye icon"></i>
-                                        <span th:text="${list.views}"></span>
-                                    </span>
-                                    <span class="right floated" style="float: right;margin-right: 10px;">
-                                        <i class="calendar alternate icon"></i>
-                                        <span th:text="${#dates.format(list.publish_time,'yyyy-MM-dd')}"></span>
-                                    </span>
-                                </div>
+                    <div class="my_item" th:each="list: ${mainlist}" >
+                        <div style="display:none;" th:text="${list.id}"></div>
+                        <div class="img">
+                            <img alt="" src="/img/wallhaven-3z32j3_1920x1080.png" th:src="@{'/images/'+${list.first_picture}}">
+                        </div>
+                        <div class="head_card">
+                            <h2 th:text="${list.title}"></h2>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="my_description">
+                            <p th:text="${list.brief_content}"></p>
+                            <div>
+                                <a th:href="@{'/blog/'+${list.id}}">了解更多</a>
                             </div>
-
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="extra content">
+                            <span class="left floated" style="float: left;margin-left: 20px;">
+                                <i class="eye icon"></i>
+                                <span th:text="${list.views}"></span>
+                            </span>
+                            <span class="right floated" style="float: right;margin-right: 10px;">
+                                <i class="calendar alternate icon"></i>
+                                <span th:text="${#dates.format(list.publish_time,'yyyy-MM-dd')}"></span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div style="height: 200px;"></div>
+            <div class="ui divider" ></div>
         </div>
-        <div class="ui divider"></div>
     </div>
-
-
 
     <img class="ui fluid image" src="/img/footer.png" th:src="@{/img/footer.png}">
 
 
-
-
-
-
-
     <script>
+
+        $('#about_me').click(function (){
+            $('.ui.modal')
+                .modal('show')
+            ;
+        });
+
+        $("#pointer").on('click',function(e){
+
+            $('html,body').animate({scrollTop:$("#body").offset().top}, 800);
+        });
+
         // 冒泡特效
         (function(w, d) {
 
@@ -241,9 +223,6 @@
             };
         })(window, document);
     </script>
-
-
-
 
 </body>
 

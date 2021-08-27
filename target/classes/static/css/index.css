@@ -87,6 +87,34 @@ html::-webkit-scrollbar-track {
     text-align: center;
 }
 
+.headButton {
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    transform: translateX(-50%);
+    -webkit-animation: bounce-down 2s linear infinite;
+    animation: bounce-down 5s linear infinite;
+}
+
+.headButton :hover{
+    cursor: pointer;
+}
+
+
+@-webkit-keyframes bounce-down {
+    25% {-webkit-transform: translate(-50%,-10px);}
+    50%, 100% {-webkit-transform: translate(-50%,0);}
+    75% {-webkit-transform: translate(-50%,10px);}
+}
+
+@keyframes bounce-down {
+    25% {transform: translate(-50%,-10px);}
+    50%, 100% {transform: translate(-50%,0);}
+    75% {transform: translate(-50%,10px);}
+}
+
+
+
 .headTitle h1 {
     color: white;
     text-align: center;
@@ -136,13 +164,19 @@ html::-webkit-scrollbar-track {
 }
 
 .my_item img {
+    position: relative;
     display: block;
     border-radius: 5px;
-    width: 100%;
+    width: 90%;
     height: 100%;
+    margin: 10px auto;
 }
 
 .my_description {
     padding: 0 15px;
     word-wrap: break-word;
+}
+
+.head_card h2{
+    margin-left: 10px;
 }

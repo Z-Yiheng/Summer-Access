@@ -1,7 +1,7 @@
 package com.demo.access.service;
 
+import com.demo.access.Utils.MarkdownUtils;
 import com.demo.access.mapper.BlogMapper;
-import com.demo.access.mapper.UserMapper;
 import com.demo.access.pojo.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,17 @@ import java.util.Map;
  **/
 @Service
 public class BlogService implements BlogMapper {
+
+    @Override
+    public Blog getAndConvert(int id) {
+        Blog blog = blogMapper.findBlog(id);
+//        if (blog == null) {
+//            throw new NotFoundException("该博客不存在");
+//        }
+        String content = blog.getDetail_content();
+        blog.setDetail_content(MarkdownUtils.markdownToHtmlExtensions(content));
+        return blog;
+    }
 
     @Autowired
     BlogMapper blogMapper;
@@ -49,7 +60,22 @@ public class BlogService implements BlogMapper {
     }
 
     @Override
+    public Blog findBlog(int id) {
+        return blogMapper.findBlog(id);
+    }
+
+    @Override
     public List<Blog> mainblog() {
         return blogMapper.mainblog();
+    }
+
+    @Override
+    public List<Blog> lastest() {
+        return blogMapper.lastest();
+    }
+
+    @Override
+    public int UpdateBlog(int id, String title, String brief_content, String detail_content,Boolean published) {
+        return blogMapper.UpdateBlog(id,title,brief_content,detail_content,published);
     }
 }

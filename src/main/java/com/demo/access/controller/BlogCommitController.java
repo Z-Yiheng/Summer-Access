@@ -3,14 +3,17 @@ package com.demo.access.controller;
 import com.demo.access.pojo.Blog;
 import com.demo.access.service.BlogService;
 import com.demo.access.service.ImgService;
+import com.demo.access.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -28,7 +31,7 @@ public class BlogCommitController {
     private ImgService imgService;
 
     @PostMapping("/insertBlog")
-    public String insertBlog(HttpServletRequest request, Blog blog) throws IOException {
+    public String insertBlog(HttpServletRequest request) throws IOException {
 
         Blog blog1 = new Blog();
 
@@ -43,10 +46,10 @@ public class BlogCommitController {
         MultipartFile file = multipartRequest.getFile("file");
         blog1.setFirst_picture(imgService.uploadImage(file));
 
-
         //保存到数据库
         blogService.saveBlog(blogService.setBlog(blog1));
 
         return "redirect:/map";
     }
+
 }

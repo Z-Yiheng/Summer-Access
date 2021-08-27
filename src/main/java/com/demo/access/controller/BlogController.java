@@ -2,6 +2,7 @@ package com.demo.access.controller;
 
 import com.demo.access.pojo.Blog;
 import com.demo.access.service.BlogService;
+import com.demo.access.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,12 @@ public class BlogController {
 
     @Autowired
     BlogService blogService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    HttpSession httpSession;
 
     //map 页显示
     @RequestMapping("/map")
@@ -64,6 +72,9 @@ public class BlogController {
         model.addAttribute("totalCount",totalCount);
         model.addAttribute("maxPage",maxPage);
 
+        String username = (String) httpSession.getAttribute("username");
+        modelMap.addAttribute("person",userService.USER_LIST(username));
+
         return "map";
     }
 
@@ -74,14 +85,33 @@ public class BlogController {
         return "redirect:/map";
     }
 
+    @RequestMapping("/refresh/{id}")
+    public String refreshBlog (@PathVariable int id,ModelMap modelMap) {
+        modelMap.addAttribute("Blog",blogService.findBlog(id));
+
+        String username = (String) httpSession.getAttribute("username");
+        modelMap.addAttribute("person",userService.USER_LIST(username));
+
+        return "/update";
+    }
+
     //main 页 博客显示
     @RequestMapping("/main")
     public String mainShow(ModelMap modelMap) {
         List<Blog> mianlist = blogService.mainblog();
         modelMap.addAttribute("mainlist",mianlist);
+
+        List<Blog> lastestList = blogService.lastest();
+        modelMap.addAttribute("lastestList",lastestList);
+
         return "/main";
     }
 
+    @RequestMapping("/blog/{id}")
+    public String findBlog(@PathVariable int id , ModelMap modelMap) {
+        modelMap.addAttribute("Blog",blogService.getAndConvert(id));
+        return "myblog";
+    }
 
 }
 

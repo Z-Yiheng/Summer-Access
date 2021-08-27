@@ -1,5 +1,8 @@
 server:
   port: 8888
+  servlet:
+    session:
+      timeout: 3600s
 
 spring:
   thymeleaf:
@@ -17,8 +20,11 @@ spring:
     time-zone: GMT+8
   jpa:
     hibernate:
-      ddl-auto: update
-
+      ddl-auto: none
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
 

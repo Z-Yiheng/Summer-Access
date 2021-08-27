@@ -32,4 +32,9 @@ public class UserService implements UserMapper{
     public User USER_LIST(String username) {
         return userMapper.USER_LIST(username);
     }
+
+    @Override
+    public int UpdateLogo(User user) {
+        return userMapper.UpdateLogo(user);
+    }
 }

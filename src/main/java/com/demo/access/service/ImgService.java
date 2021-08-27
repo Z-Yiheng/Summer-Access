@@ -17,7 +17,7 @@ public class ImgService {
 
         String fileName = file.getOriginalFilename();
 
-        File pfile = new File("D:/张以恒/桌面/Summer-Access/src/main/resources/static/img/");
+        File pfile = new File("D:/张以恒/桌面/Summer-Access/src/main/resources/static/images/");
         if (!pfile.exists()) {
             pfile.mkdirs();
         }
@@ -25,7 +25,6 @@ public class ImgService {
         File saveFile = new File(pfile,fileName);
 
         try {
-            System.out.println("save");
             file.transferTo(saveFile);
         } catch (IOException e) {
             e.printStackTrace();
