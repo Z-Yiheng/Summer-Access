@@ -42,20 +42,27 @@
 
     <div class="pusher">
         <div class="ui basic segment">
+            <div class="ui large breadcrumb">
+                <a class="section" th:href="@{/main}">主页</a>
+                <i class="right chevron icon divider"></i>
+                <a class="section" onclick="window.history.go(-1)">返回</a>
+                <i class="right chevron icon divider"></i>
+                <div class="active section">个人信息</div>
+            </div>
             <form class="ui form" id="blog-form" th:action="@{/insertBlog}" method="post" enctype="multipart/form-data">
                 <div class="ui container">
                     <input type="hidden" name="published" id="published">
-                    <div class="field">
+                    <div class="field" id="title-field">
                         <label>标题</label>
                         <input type="text" name="title" id="title" placeholder="Title">
                     </div>
 
-                    <div class="field">
+                    <div class="field" id="briefContent-field">
                         <label>简介</label>
                         <input type="text" name="briefContent" id="briefContent" placeholder="Brief Introduction">
                     </div>
 
-                    <div class="field">
+                    <div class="field" id="firstPicture-field">
                         <label>首图</label>
                         <img src="" id="show" width="200">
                         <input type="file" name="file" id="firstPicture" style="display: none;" onchange="changepic()" accept="image/gif,image/jpg,image/png">
@@ -75,16 +82,43 @@
                     <button type="button" id="save-btn" class="ui orange button" onclick="submit()">保存</button>
                     <button type="button" id="publish-btn" class="ui yellow button" onclick="submit()">发布</button>
                 </div>
+                <div class="ui error message"></div>
             </form>
         </div>
         <img class="ui fluid image" src="/img/footer.png" style="z-index: -1;" alt="">
-
+    </div>
+    <div class="ui dimmer" id="load">
+        <div class="ui text loader">Loading</div>
     </div>
 
 
     <script src="/Utils/editormd/editormd.min.js" th:src="@{/Utils/editormd/editormd.min.js}"></script>
     <script type="text/javascript">
-
+        $('.ui.form')
+            .form({
+                on:'blur',
+                fields: {
+                    title: {
+                        identifier :'title',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt:'标题为空'
+                            }
+                        ]
+                    },
+                    briefContent: {
+                        identifier :'briefContent',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt:'简介为空'
+                            }
+                        ]
+                    }
+                }
+            })
+        ;
         function changepic() {
             var reads= new FileReader();
             f=document.getElementById('firstPicture').files[0];
@@ -160,6 +194,12 @@
                 data: formData,
                 processData: false,
                 contentType: false,
+                beforeSend: function () {
+                    $('#load').attr("class","ui active dimmer")
+                },
+                complete: function () {
+                    $('#load').attr("class","ui dimmer")
+                }
             });
         };
 

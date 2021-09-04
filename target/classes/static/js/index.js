@@ -3,7 +3,6 @@ function waterFall() {
     var columns = 3;
     var itemWidth = 365;
     var arr = [];
-    console.log(itemWidth);
     $(".content_body .my_item").each(function(i) {
         var height = $(this).height();
         if (i < columns) {
@@ -37,3 +36,4 @@ window.onresize = function() {
 window.onload = function() {
     waterFall();
 }
+

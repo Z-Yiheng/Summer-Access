@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传成功</title>
+    <link rel="stylesheet" href="/CSS/login.css" th:href="@{/CSS/login.css}">
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
+</head>
+
+<body>
+<div class="wrap">
+    <div class="ui container" style="text-align: center;">
+        <h2 class="ui center aligned icon header"><i class="circular check icon"></i> </h2>
+
+        <h3 class="ui center aligned red header" th:text="${msg}">上传成功</h3>
+        <p>感谢你的支持！！！</p>
+
+        <button class="ui button"><a th:href="@{/main}">返回主页</a></button>
+    </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+
+</html>

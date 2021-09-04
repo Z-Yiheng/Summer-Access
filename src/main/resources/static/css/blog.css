@@ -64,8 +64,7 @@ body {
 }
 
 #content_container {
-    width: 1000px;
-    height: 100%;
+    width: 60%;
     margin: 0 auto;
     background-color: whitesmoke;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.226);
@@ -73,8 +72,8 @@ body {
 
 #title {
     padding-top: 40px;
-    font-size: 30px;
-    font-family: '华文隶书';
+    font-size: 23px;
+    font-family: '华文仿宋';
 }
 
 #content {
@@ -85,4 +84,36 @@ body {
 
 p {
     font-size: 17px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.ui.text.container {
+    text-shadow: 0 3px 6px rgb(0 0 0 / 30%);
+}
+
+.ui.text.container h1 {
+    font-size: 50px;
+    color: white;
+    padding-top: 60px;
+}
+
+.ui.text.container div {
+    display: flex;
+    justify-content: center;
+}
+
+.ui.text.container i {
+    color: white;
+}
+
+.ui.text.container span {
+    color:white;
+    margin-right: 20px;
+}
+
+.ui.vertical.buttons {
+    position: fixed;
+    bottom: 15%;
+    right: 0;
 }

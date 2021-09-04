@@ -2,7 +2,9 @@ server:
   port: 8888
   servlet:
     session:
-      timeout: 3600s
+      timeout: PT1M
+      cookie:
+        max-age: PT1M
 
 spring:
   thymeleaf:
@@ -20,7 +22,7 @@ spring:
     time-zone: GMT+8
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
   servlet:
     multipart:
       max-file-size: 10MB

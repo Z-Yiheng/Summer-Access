@@ -54,7 +54,7 @@ public class UserDoController {
     }
 
     @PostMapping("/person")
-    public String uploadInf(HttpServletRequest request, User user) {
+    public String uploadInf(HttpServletRequest request) {
         User newUser = new User();
 
         newUser.setOthername(request.getParameter("othername"));

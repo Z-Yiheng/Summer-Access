@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advise</title>
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
+    <script src="/Utils/jquery-3.6.0.js" th:href="@{/Utils/jquery-3.6.0.js}"></script>
+    <script src="/Utils/semantic_ui/semantic.min.js" th:href="@{/Utils/semantic_ui/semantic.min.js}"></script>
+    <style>
+        #evanyou {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: -999;
+        }
+    </style>
+</head>
+
+<body>
+<canvas id="evanyou" width="1920" height="934"></canvas>
+    <div class="ui container">
+        <div class="ui breadcrumb">
+            <a class="section" th:href="@{/main}">主页</a>
+            <div class="divider"> / </div>
+            <div class="active section">意见箱</div>
+        </div>
+
+        <h2 class="ui header">
+            <img src="/img/信箱.png" th:src="@{/img/信箱.png}">
+            <div class="content">
+                意见箱
+                <div class="sub header">欢迎你提供宝贵意见</div>
+            </div>
+        </h2>
+        <form class="ui form" id="advice-form" th:action="@{/updateadvice}" method="post" enctype="multipart/form-data" style="margin-top: 50px">
+            <div class="field">
+                <label>如何称呼您：</label>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" id="name" name="name" placeholder="*先生/女士">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>您的联系方式：</label>
+                <div class="two fields">
+                    <div class="two wide field">
+                        <select class="ui fluid search dropdown" name="way" id="way">
+                          <option value="">方式</option>
+                          <option value="1">QQ</option>
+                          <option value="2">WeChat</option>
+                          <option value="3">Phone</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <input type="text" name="number" id="number" placeholder="QQ/WeChat/Phone">
+                    </div>
+                </div>
+
+                <h4 class="ui dividing header">意见：</h4>
+                <div class="field">
+                    <textarea id="advice" name="advice" maxlength="500" placeholder="最大字数500字" onkeyup="wordStatic(this)"></textarea>
+                    <span id="num">0</span>/500
+                </div>
+
+                <button class="ui right floated button" tabindex="0" onclick="submit()">Submit Order</button>
+            </div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+<script th:src="@{/JS/back.js}"></script>
+        <script>
+
+            $('.ui.form')
+                .form({
+                  on:'blur',
+                  fields:{
+                      name: {
+                          identifier: 'name',
+                          rules: [
+                              {
+                                  type: 'empty',
+                                  prompt:'请填写您的称呼'
+                              }
+                          ]
+                      },
+                      way: {
+                          identifier: 'way',
+                          rules: [
+                              {
+                                  type: 'empty',
+                                  prompt: '请选择联系方式'
+                              }
+                          ]
+                      },
+                      number: {
+                          identifier: 'number',
+                          rules: [
+                              {
+                                  type: 'empty',
+                                  prompt: '请填写联系号码'
+                              }
+                          ]
+                      },
+                      advice: {
+                          identifier: 'advice',
+                          rules: [
+                              {
+                                  type: 'empty',
+                                  prompt:'您的建议为空'
+                              }
+                          ]
+                      }
+                  }
+                })
+            ;
+            function wordStatic(input) {
+                // 获取要显示已经输入字数文本框对象
+                var content = document.getElementById('num');
+                if (content && input) {
+                    // 获取输入框输入内容长度并更新到界面
+                    var value = input.value;
+                    // 将换行符不计算为单词数
+                    value = value.replace(/\n|\r/gi, "");
+                    // 更新计数
+                    content.innerText = value.length;
+                }
+            }
+
+            function submit() {
+
+                var formData = new FormData($('#advice-form')[0]);
+
+                $.ajax({
+                    url: '/updateadvice',
+                    type: 'POST',
+                    cache: false,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                });
+            };
+        </script>
+</body>
+
+</html>

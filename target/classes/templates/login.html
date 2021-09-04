@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html>
-
 <head lang="en" xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
     <title>后台管理登录界面</title>
@@ -31,6 +29,9 @@
                 <div class="header">对不起，您没有权限</div>
                 <p>可能权限过期，请重新登录</p>
             </div>
+        </div>
+        <div class="ui dimmer" id="load">
+            <div class="ui text loader">Loading</div>
         </div>
         <ul>
             <li></li>
@@ -75,6 +76,9 @@
                 contentType: 'application/json',
                 data: user,
                 dataType: 'json',
+                beforeSend: function () {
+                    $('#load').attr("class","ui active dimmer")
+                },
                 success: function(data) {
                     if (data.result == "fail") {
                         $('.ui.basic.modal')
@@ -83,6 +87,9 @@
                     } else {
                         window.location.href = "/personal";
                     }
+                },
+                complete: function () {
+                    $('#load').attr("class","ui dimmer")
                 }
             })
         }

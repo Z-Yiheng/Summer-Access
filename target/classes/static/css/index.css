@@ -180,3 +180,37 @@ html::-webkit-scrollbar-track {
 .head_card h2{
     margin-left: 10px;
 }
+
+a {
+    color: black;
+}
+
+a :hover {
+    color: black;
+}
+
+.circular.ui.olive.icon.button {
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    z-index: 999;
+    animation: run 10s linear infinite paused;
+}
+
+@keyframes run{
+    from{
+        /* 旋转效果 */
+        transform: rotateZ(0);
+    }
+    to{
+        transform: rotateZ(720deg);
+    }
+}
+
+audio {
+    display: none;
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    z-index: 999;
+}

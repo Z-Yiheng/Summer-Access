@@ -2,7 +2,9 @@ server:
   port: 8888
   servlet:
     session:
-      timeout: 3600s
+      timeout: PT1M
+      cookie:
+        max-age: PT1M
 
 spring:
   thymeleaf:

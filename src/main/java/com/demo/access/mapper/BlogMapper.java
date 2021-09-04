@@ -53,7 +53,7 @@ public interface BlogMapper {
     Blog findBlog(@Param("id") int id);
 
     //查询最新的三条数据
-    @Select(value = "select * from my_blog order by publish_time desc limit 0,3")
+    @Select(value = "select * from my_blog where published = true order by publish_time desc limit 0,3")
     List<Blog> lastest();
 
 }

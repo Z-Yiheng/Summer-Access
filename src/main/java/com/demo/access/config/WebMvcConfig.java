@@ -15,8 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/main").setViewName("main");
+        registry.addViewController("/advice").setViewName("advice");
+        registry.addViewController("/back").setViewName("back");
         registry.addViewController("/login.html").setViewName("login");
-        registry.addViewController("/404").setViewName("/404");
+        registry.addViewController("/404").setViewName("404");
     }
 
     //配置拦截器
@@ -24,7 +26,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/main","/blog/**","/background","/login","/CSS/**","/JS/**","/Utils/**","/img/**","/**.ico","/images/**","/404");
+                .excludePathPatterns("/main",
+                        "/blog/**",
+                        "/background",
+                        "/login",
+                        "/CSS/**",
+                        "/JS/**",
+                        "/Utils/**",
+                        "/img/**",
+                        "/**.ico",
+                        "/images/**",
+                        "/404",
+                        "/advice",
+                        "/updateadvice",
+                        "/back");
     }
 
     @Override

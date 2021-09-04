@@ -55,9 +55,17 @@
     <div class="pusher">
         <div class="ui basic segment">
 
-            <form class="ui form" id="logo-form" method="post" th:action="@{/uploadImg}" enctype="multipart/form-data">
+            <div class="ui large breadcrumb">
+                <a class="section" th:href="@{/main}">主页</a>
+                <i class="right chevron icon divider"></i>
+                <a class="section" onclick="window.history.go(-1)">返回</a>
+                <i class="right chevron icon divider"></i>
+                <div class="active section">个人信息</div>
+            </div>
+
+            <form class="ui form" id="logo-form" method="post" th:action="@{/uploadImg}" enctype="multipart/form-data" style="margin-top: 10px">
                 <a class="item">
-                    <img id="show" class="ui medium circular image" src="/img/logo.jpg" th:src="@{'/images/'+${person.logo}}" alt="">
+                    <img id="show" class="ui small circular image" src="/img/logo.jpg" th:src="@{'/images/'+${person.logo}}" alt="">
                 </a>
                 <input type="file" name="file" id="logo" style="display: none;" onchange="changepic()" accept="image/gif,image/jpg,image/png">
                 <button class="ui inverted blue tiny button" type="button" onclick="openFile()" style="margin-left: 300px;">更改头像</button>
@@ -123,6 +131,9 @@
 
         </div>
     </div>
+    <div class="ui dimmer" id="load">
+        <div class="ui text loader">Loading</div>
+    </div>
 </div>
 <img class="ui fluid image" src="/img/footer.png" th:src="@{/img/footer.png}" alt="">
 
@@ -152,11 +163,17 @@
             data: formData_logo,
             processData: false,
             contentType: false,
+            beforeSend: function () {
+                $('#load').attr("class","ui active dimmer")
+            },
             success: function (data) {
                 if (data == "success"){
                     window.location.href = "/personal";
                 }
                 alert("上传成功");
+            },
+            complete: function () {
+                $('#load').attr("class","ui dimmer")
             }
         });
     };
@@ -171,11 +188,17 @@
             data: formData,
             processData: false,
             contentType: false,
+            beforeSend: function () {
+                $('#load').attr("class","ui active dimmer")
+            },
             success: function (data) {
                 if (data == "success"){
                     window.location.href = "/personal";
                 }
                 alert("上传成功");
+            },
+            complete: function () {
+                $('#load').attr("class","ui dimmer")
             }
         });
     };

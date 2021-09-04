@@ -6,15 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blog</title>
-    <link rel="stylesheet" href="/css/blog.css" th:href="@{/CSS/blog.css}">
 
-    <!-- 插件 -->
-    <!-- <link rel="stylesheet" href="/Utils/tocbot/tocbot.css"> -->
-    <link rel="stylesheet" href="/Utils/semantic_ui/components/icon.min.css" th:href="@{/Utils/semantic_ui/components/icon.min.css}">
+    <link rel="stylesheet" href="/Utils/semantic_ui/semantic.css" th:href="@{/Utils/semantic_ui/semantic.css}">
+    <link rel="stylesheet" href="/css/blog.css" th:href="@{/CSS/blog.css}">
     <link rel="stylesheet" href="/css/typo.css" th:href="@{/CSS/typo.css}">
     <link rel="stylesheet" href="/Utils/prism/prism.css" th:href="@{/Utils/prism/prism.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css}">
-
 </head>
 
 <body>
@@ -22,14 +18,21 @@
     <div id="background"></div>
 
     <div class="head_background">
-        <div class="ui text container animate__bounceIn">
-            <h1 class="ui inverted huge header " style="color: white;" th:text="${Blog.title}"></h1>
-            <h3 class="ui inverted header" style="text-align: center;">
-                <i class="eye icon" style="color: white;"></i><span style="color:white;margin-right: 20px" th:text="${Blog.views}"></span>
-                <i class="clock outline icon" style="color: white;"></i><span style="color: white" th:text="${#dates.format(Blog.publish_time,'yyyy-MM-dd')}"></span>
-            </h3>
+        <div class="ui text container">
+            <h1 class="ui inverted huge header " th:text="${Blog.title}"></h1>
+            <div>
+                <i class="eye icon"></i>阅读量：<span th:text="${Blog.views}"></span>
+                <i class="clock outline icon"></i>发布时间：<span th:text="${#dates.format(Blog.publish_time,'yyyy-MM-dd')}"></span>
+            </div>
         </div>
     </div>
+
+    <div class="ui vertical teal buttons">
+        <button class="ui button" id="to_top_btn"><i class="chevron circle up icon"></i>置顶</button>
+        <button class="ui button"><i class="like icon"></i>点赞</button>
+        <button class="ui button" id="to_home_btn"><i class="home icon"></i>主页</button>
+    </div>
+
     <!-- body 主体 -->
     <div id="content_container">
         <div id="content" class="typo typo-selection js-toc-content">
@@ -39,7 +42,7 @@
                 <ol class="js-toc">
                 </ol>
             </div>
-            <div style="display: inline-block;" th:utext="${Blog.detail_content}"></div>
+            <div style="display: inline-block;width: 100%;" th:utext="${Blog.detail_content}"></div>
         </div>
 
     </div>
@@ -47,6 +50,7 @@
 
     <!-- js 部分 -->
     <script type="text/javascript" src="/js/jquery-3.6.0.js" th:src="@{/Utils/jquery-3.6.0.js}"></script>
+    <script src="/Utils/semantic_ui/semantic.min.js" th:src="@{/Utils/semantic_ui/semantic.min.js}"></script>
     <script src="/Utils/prism/prism.js" th:src="@{/Utils/prism/prism.js}"></script>
     <script src="/Utils/tocbot/tocbot.js" th:src="@{/Utils/tocbot/tocbot.js}"></script>
     <script>
@@ -72,6 +76,32 @@
                 document.querySelector('.progress').style.width = (scrollTop / scrollAvail) * 100 + '%';
             };
         }());
+
+        $('.ui.text.container')
+            .transition('bounce')
+        ;
+        //置顶按钮
+        $(window).scroll(function () {
+            if ($(document).scrollTop() > 160) {
+                $('#to_top_btn').fadeIn();
+            } else {
+                $('#to_top_btn').fadeOut();
+            }
+        });
+        $('#to_top_btn').click(function () {
+            var timer = setInterval(function () {
+                if ($(document).scrollTop() == 0) {
+                    clearInterval(timer);
+                } else {
+                    $(document).scrollTop($(document).scrollTop() - 30);
+                }
+            }, 5);
+        });
+
+        $('#to_home_btn').click(function () {
+            window.location.href="/main"
+        })
+
     </script>
 </body>
 

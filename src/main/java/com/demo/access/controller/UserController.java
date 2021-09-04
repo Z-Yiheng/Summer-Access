@@ -52,7 +52,7 @@ public class UserController {
                     method = RequestMethod.POST,
                     headers = "Accept=application/json")
     @ResponseBody
-    public Map<String ,Object> check(@RequestBody User user, HttpSession session, Model model) {
+    public Map<String ,Object> check(@RequestBody User user, HttpSession session) {
         Map<String ,Object> map = new HashMap<>();
         if (login(user)==true) {
             session.setAttribute("username",user.getUsername());

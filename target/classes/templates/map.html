@@ -39,6 +39,13 @@
         </div>
         <div class="pusher">
             <div class="ui basic segment">
+                <div class="ui large breadcrumb">
+                    <a class="section" th:href="@{/main}">主页</a>
+                    <i class="right chevron icon divider"></i>
+                    <a class="section" onclick="window.history.go(-1)">返回</a>
+                    <i class="right chevron icon divider"></i>
+                    <div class="active section">列表</div>
+                </div>
                 <table class="ui selectable celled striped table" style="margin-top: 30px;">
                     <thead>
                         <tr>
@@ -100,7 +107,7 @@
         </div>
     </div>
     </div>
-    <img class="ui fluid image" src="/img/footer.png" th:src="@{/img/footer.png}" alt="">
+    <img class="ui fluid bottom aligned image" src="/img/footer.png" th:src="@{/img/footer.png}" alt="">
 
     <script>
         $('#delete').click(function (){
