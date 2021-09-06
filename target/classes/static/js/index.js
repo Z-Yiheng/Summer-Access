@@ -21,12 +21,14 @@ function waterFall() {
                 }
             }
             $(this).css({
-                top: arr[index],
+                top: arr[index]+1,
                 left: $(".content_body .my_item").eq(index).css("left")
             });
-            arr[index] = arr[index] + height;
+            arr[index] = arr[index] + height + 1;
+            $('.content_body').css("height",arr[index]+100);
         }
     })
+
 }
 
 window.onresize = function() {

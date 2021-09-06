@@ -2,9 +2,11 @@ server:
   port: 8888
   servlet:
     session:
-      timeout: PT1M
+#      timeout: PT1M
+      timeout: PT1H
       cookie:
-        max-age: PT1M
+        max-age: PT1H
+#        max-age: PT1M
 
 spring:
   thymeleaf:
@@ -22,13 +24,15 @@ spring:
     time-zone: GMT+8
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
+  configuration:
+    call-setters-on-nulls: true
 
 
 

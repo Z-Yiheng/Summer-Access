@@ -30,7 +30,7 @@
     <div class="ui fixed stackable menu" style="background-color: rgba(255, 255, 255, 0.856);">
         <div class="ui container">
             <div class="item">
-                <h5 class="ui header"><img class="ui circular image" src="/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="">Z-Yiheng</h5>
+                <h5 class="ui header"><img class="ui circular image" src="/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="">MyBlog</h5>
             </div>
             <a class="item" th:href="@{/main}">
                 <i class="home icon"></i> 首页
@@ -193,7 +193,7 @@
                     </div>
                 </div>
             </div>
-            <div style="height: 10px;"></div>
+            <div style="height: 50px;"></div>
             <div class="ui divider" ></div>
 
         </div>
@@ -225,11 +225,11 @@
                 // 运行动画
                 box.style.animationPlayState = 'running'
                 // 播放音乐
-                mv.play()
+                audio.play()
             }else{
                 // 暂停音乐和动画
                 box.style.animationPlayState = 'paused'
-                mv.pause()
+                audio.pause()
             }
         }
 
@@ -273,21 +273,24 @@
         $(function() {
             //网页总高度
             let pageHeight = document.body.scrollHeight;
+            console.log(pageHeight);
             //浏览器高度
             let windowHeight = document.documentElement.clientHeight;
-
+            console.log(windowHeight);
             $('#rocket').css('top', windowHeight - 40);
             //可滚动高度
             let scrollAvail = pageHeight - windowHeight;
+            console.log(scrollAvail)
             window.onscroll = function() {
                 //滚动条高度
                 let scrollTop = document.documentElement.scrollTop;
+                console.log(scrollTop);
                 // 火箭移动
                 if (scrollTop == 0) {
                     $("#rocket").removeClass("rocket");
                 } else {
                     $("#rocket").addClass("rocket");
-                    if (scrollTop > 40 & scrollTop < 700) {
+                    if (scrollTop > 40 & scrollTop < 400) {
                         $('#peng').fadeIn(200);
                         $('#peng').css({
                             'top': windowHeight - 40 + scrollTop,
@@ -297,7 +300,7 @@
                         $('#peng').hide();
                     }
                 }
-                $('#rocket').css('top', windowHeight - 40 + scrollTop / scrollAvail * (scrollAvail - windowHeight + 103));
+                $('#rocket').css('top', windowHeight - 40 + scrollTop / scrollAvail * (scrollAvail - windowHeight) );
             };
             $('#rocket').click(function() {
                 if (document.documentElement.scrollTop > 0) {

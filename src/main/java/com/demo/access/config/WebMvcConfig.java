@@ -39,7 +39,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/404",
                         "/advice",
                         "/updateadvice",
-                        "/back");
+                        "/back",
+                        "/Music/**");
     }
 
     @Override

@@ -20,9 +20,6 @@ public class BlogService implements BlogMapper {
     @Override
     public Blog getAndConvert(int id) {
         Blog blog = blogMapper.findBlog(id);
-//        if (blog == null) {
-//            throw new NotFoundException("该博客不存在");
-//        }
         String content = blog.getDetail_content();
         blog.setDetail_content(MarkdownUtils.markdownToHtmlExtensions(content));
         return blog;
